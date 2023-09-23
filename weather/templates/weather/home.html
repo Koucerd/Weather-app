@@ -1,0 +1,90 @@
+{% extends 'weather/base.html'%}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+
+      <div class="navbar">
+          <a href="{%url 'home'%}">Home</a>
+          <a href="{% url 'api' %}">API</a>
+
+
+                  <form method="GET" action="{% url 'search' %}">
+    <input type="text" class="inputlocation" name="q" placeholder="Enter a city or ZipCode">
+    <button class="buttonlocation" type="submit">Find</button>
+</form>
+      </div>
+<div class="log_out"><a href="{%url 'logout'%}">Log Out</a></div>
+
+
+      <main>
+        <div class="temp">
+            <sup id="marker"></sup>
+            <h2> {{ temp }}°C</h2>
+                              <sub> <h7>{{ day }}</h7> </sub>
+            <h5> <img src={{ main }}></sub></h5>
+            <h1> {{ city }}</h1>
+            <sub><h4> {{ country }}</h4></sub>
+          </div>
+
+          <h1 id="temp"></h1>
+          <div class="min-max">
+          </div>
+     </main>
+
+
+
+      <div class=" more" >
+        <div class="row container">
+          <div class="col-6 col-md-3 col-sm-3">
+            <h2><span id="feel"></span> <sub> {{ real_feel }} °C</sub></h2>
+            <p>Real feel</p>
+          </div>
+          <div class="col-6 col-md-3 col-sm-3">
+            <h2><span id="wind"></span> <sub> {{ wind }} km/h</sub></h2>
+            <p><span id="direction"></span> wind</p>
+          </div>
+          <div class="col-6 col-md-3 col-sm-3">
+            <h2><span id="humid"></span> <sub>{{ humidity }} %</sub></h2>
+            <p>Humidity</p>
+          </div>
+          <div class="col-6 col-md-3 col-sm-3">
+            <h2><span id="pressure"></span> <sub>{{ pressure }} hPa</sub></h2>
+            <p>Pressure</p>
+          </div>
+
+
+
+          </div>
+        </div>
+      </div>
+       <div class="cardWrap">
+          <ul class="cardList">
+            <li class="active">
+              <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/{{ info_list.2 }}@2x.png">
+              <span class="day-name">{{info_list.1}}</span>
+              <span class="day-temp">{{ info_list.0 }}°C</span>
+            </li><li class="">
+            <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/{{ info_list.5 }}@2x.png">
+            <span class="day-name">{{info_list.4}}</span>
+            <span class="day-temp">{{ info_list.3 }} °C</span>
+          </li><li class="">
+            <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/{{ info_list.8 }}@2x.png">
+            <span class="day-name">{{info_list.7}}</span>
+            <span class="day-temp">{{ info_list.6 }}°C</span>
+          </li>
+            <li class="">
+              <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/{{ info_list.11 }}@2x.png">
+              <span class="day-name">{{info_list.10}}</span>
+              <span class="day-temp">{{ info_list.9 }}°C</span>
+            </li><li class="">
+            <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/{{ info_list.14 }}@2x.png">
+            <span class="day-name">{{info_list.13}}</span>
+            <span class="day-temp">{{ info_list.12 }}°C</span>
+        </div>
+      </div>
+
+
+{% endblock %}

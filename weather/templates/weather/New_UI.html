@@ -1,0 +1,273 @@
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Title</title>
+  <link type="text/css" href="{% static 'weather/css/New_UI.css'%}" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"/>
+    <link rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"/>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="logo.png" type="image/ico" />
+
+  <style>
+    .navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 0px 100px;
+  text-decoration: none;
+    margin: 5px;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  cursor: pointer;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+  background-color: #9d1f1f;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+    .title{
+        display:flex;
+    align-items: center;
+    justify-content: center;
+        width: 250vw;
+}
+
+
+    .cardList {
+list-style: none;
+display: flex;
+gap: 10px;
+}
+
+  .cardList li {
+display:flex;
+flex-direction: column;
+gap: 5px;
+padding: 5px;
+align-items: center;
+justify-content: center;
+}
+
+
+  .cardWrap {
+          position: absolute;
+          top: 75vh;
+          left: 45vw;
+          transform: translateX(-50%);
+          width: 50vw;
+      }
+
+  .cardWrap li {
+width: 50vh;
+}
+.inputlocation {
+    width: 250px;
+    padding: 5px;
+    font-size: 16px;
+    margin: 0px;
+    border: 2px solid #4CAF50;
+    background: white;
+    color: #1e1d1d;
+    font-family: "Copperplate Gothic Light", Fantasy;
+    border-radius: 8px;
+  }
+.buttonlocation {
+    width: 80px;
+    padding: 5px;
+    margin: 0px;
+    background: white;
+    font-family: "Copperplate Gothic Light", Fantasy;
+    border-radius: 8px;
+  }
+
+  </style>
+</head>
+
+  <body class="light-theme">
+    <section id="nav">
+      <script src="New_UI.js"></script>
+
+    </section>
+    <section id="main">
+
+      <div class="navbar">
+          <a href="#home">Home</a>
+  <a href="#api">API</a>
+
+
+
+                  <form method="GET" action="{% url 'search' %}">
+    <input type="text" class="inputlocation" name="q" placeholder="Enter a city or ZipCode">
+    <button class="buttonlocation" type="submit">Find</button>
+</form>
+
+  <a href="#search">Search</a>
+  </div>
+</div>
+
+
+
+
+
+      <form class="input">
+          <input type="text" class="inputValue" placeholder="Enter a city or ZipCode" onkeypress="return runScript(event)"  />
+      </form>
+
+      <form method="get" action="{% url 'search' %}">
+    {% csrf_token %}
+    {{ form.search_query.label_tag }} {{ form.search_query }}
+    <input type="submit" value="Caută">
+</form>
+
+
+
+
+        <form method=""get action="{% url 'search' %}">
+    <input type="text" name="q" placeholder="Caută...">
+    <button type="submit">Caută</button>
+</form>
+
+
+
+
+
+
+
+
+
+      <main>
+        <div class="temp">
+            <sup id="marker"></sup>
+            <h2> {{ temp }}°C</h2>
+                              <sub> <h7>{{ day }}</h7> </sub>
+            <h5> <img src={{ main }}></sub></h5>
+            <h1> {{ city }}</h1>
+            <sub><h4> {{ country }}</h4></sub>
+          </div>
+
+          <h1 id="temp"></h1>
+          <div class="min-max">
+          </div>
+     </main>
+
+      <div class=" more" >
+        <div class="row container">
+          <div class="col-6 col-md-3 col-sm-3">
+            <h2><span id="feel"></span> <sub> {{ real_feel }} °C</sub></h2>
+            <p>Real feel</p>
+          </div>
+          <div class="col-6 col-md-3 col-sm-3">
+            <h2><span id="wind"></span> <sub> {{ wind }} km/h</sub></h2>
+            <p><span id="direction"></span> wind</p>
+          </div>
+          <div class="col-6 col-md-3 col-sm-3">
+            <h2><span id="humid"></span> <sub>{{ humidity }} %</sub></h2>
+            <p>Humidity</p>
+          </div>
+          <div class="col-6 col-md-3 col-sm-3">
+            <h2><span id="pressure"></span> <sub>{{ pressure }} hPa</sub></h2>
+            <p>Pressure</p>
+          </div>
+
+          </div>
+        </div>
+      </div>
+        <div class="cardWrap">
+          <ul class="cardList">
+            <li class="active">
+              <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/03d@2x.png">
+              <span class="day-name">Wed</span>
+              <span class="day-temp">37°C</span>
+            </li><li class="">
+            <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/10d@2x.png">
+            <span class="day-name">Thu</span>
+            <span class="day-temp">37°C</span>
+          </li><li class="">
+            <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/02d@2x.png">
+            <span class="day-name">Fri</span>
+            <span class="day-temp">37°C</span>
+          </li>
+            <li class="">
+              <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/10d@2x.png">
+              <span class="day-name">Sat</span>
+              <span class="day-temp">34°C</span>
+            </li><li class="">
+            <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/10d@2x.png">
+            <span class="day-name">Sun</span>
+            <span class="day-temp">36°C</span>
+          </li><li class=""><img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/10d@2x.png">
+            <span class="day-name">Mon</span>
+            <span class="day-temp">36°C</span>
+          </li><li class="">
+            <img class="day-icon" alt="rohit" src="http://openweathermap.org/img/wn/10d@2x.png">
+            <span class="day-name">Tue</span>
+            <span class="day-temp">38°C</span>
+          </li></ul></div>
+          </div>
+      </div>
+
+    </section>
+  </body>
+</html>
+
+</body>
+</html>
